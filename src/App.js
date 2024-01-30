@@ -205,7 +205,7 @@ function App() {
       catafotModel.forEach((model) => {
         scene.remove(model)
       })
-      switch (selectedOptionStop) {
+      switch (selectedOptionСatafot) {
         case "Stok":
           loader.load("Catafot/катафотсток.gltf", (gltf) => {
             const model = gltf.scene.children[0]
