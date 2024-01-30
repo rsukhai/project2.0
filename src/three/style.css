@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+.canvas {
+    
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: 1;
+    opacity:1;
+    display: block;
+   
+}
+.xxx{
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    width: 450px;
+    height: 450px;
+    background-color: black;
+}
