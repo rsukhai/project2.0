@@ -17,7 +17,7 @@ function App() {
   const [selectedOptionStop, setSelectedOptionStop] = useState("Stok")
   const [selectedOptionСatafot, setSelectedOptionСatafot] = useState("Stok")
 
-  const canvasRef = useRef()
+  const canvasRef = useRef(null)
   const splitrModel = []
   const grillModel = []
   const lightModel = []
@@ -25,6 +25,13 @@ function App() {
   const catafotModel = []
 
   const loader = new GLTFLoader()
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const parent = canvas.parentElement
+    canvas.width = parent.clientWidth
+    canvas.height = parent.clientHeight
+  }, [])
 
   useEffect(() => {
     loader.load("Base/стокмашина.gltf", (gltf) => {
@@ -269,7 +276,7 @@ function App() {
     selectedOptionGrill,
     selectedOptionLights,
     selectedOptionStop,
-    selectedOptionСatafot
+    selectedOptionСatafot,
   ])
 
   return (
@@ -298,7 +305,7 @@ function App() {
           setSelectedOptionСatafot={setSelectedOptionСatafot}
         />
       </div>
-      <div className="canvas">
+      <div className="canvas-container">
         <canvas ref={canvasRef}></canvas>
       </div>
     </div>

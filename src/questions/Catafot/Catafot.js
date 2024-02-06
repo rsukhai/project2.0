@@ -10,8 +10,8 @@ const Сatafot = ({selectedOptionСatafot, setSelectedOptionСatafot}) => {
     <div className="catafot">
       <table>
         <tr>
-          <td>
-            <h1>Катафот</h1>
+          <td className="td2">
+            <h1 className="h1">Катафот</h1>
             <input
               type="checkbox"
               value={"Stok"}

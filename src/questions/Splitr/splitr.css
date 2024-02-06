@@ -1,9 +1,18 @@
-.splitr{
-
+@media screen and (max-width: 500px) {
+  .h1 {
+    font-size: 25px;
+  }
+  .splitr {
+    width: 40%;
+    height: 100%;
+    font-size: 15px;
+    margin-left: 20px;
+  }
+}
+@media screen and (min-width: 500px) {
+  .splitr {
     width: 250px;
     height: 100%;
-
-
-    
-
+    font-size: 15px;
+  }
 }

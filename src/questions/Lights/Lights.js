@@ -9,8 +9,8 @@ const Lights = ({selectedOptionLights, setSelectedOptionLights}) => {
     <div className="lights">
       <table>
         <tr>
-          <td>
-            <h1>Фари</h1>
+          <td className="td2">
+            <h1 className="h1">Фари</h1>
             <input
               type="checkbox"
               value={"Stok"}

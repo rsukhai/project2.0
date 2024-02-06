@@ -1,8 +1,20 @@
-.grill{
+@media screen and (max-width: 500px) {
+  .h1 {
+    font-size: 25px;
+  }
+  .grill {
+    width: 40%;
+    height: 100%;
+    margin-right: 20px;
+  }
+  .td {
+    padding-left: 50px;
+  }
+}
+@media screen and (min-width: 500px) {
+
+  .grill {
     width: 250px;
     height: 100%;
-
-
-    
-
+  }
 }

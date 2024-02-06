@@ -16,7 +16,7 @@ const Splitr = ({selectedOptionSplitr, setSelectedOptionSplitr}) => {
       <table>
         <tr>
           <td>
-            <h1>Юбки</h1>
+            <h1 className="h1">Юбки</h1>
             <input
               type="checkbox"
               value={"Stok"}

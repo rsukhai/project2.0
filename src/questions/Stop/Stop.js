@@ -1,6 +1,6 @@
 import "./stop.css"
 
-const Stop = ({selectedOptionStop, setSelectedOptionStop}) => {
+const Stop = ({ selectedOptionStop, setSelectedOptionStop }) => {
   function onValueChange(event) {
     setSelectedOptionStop(event.target.value)
   }
@@ -8,8 +8,8 @@ const Stop = ({selectedOptionStop, setSelectedOptionStop}) => {
     <div className="stop">
       <table>
         <tr>
-          <td>
-            <h1>Стопи</h1>
+          <td className="td2">
+            <h1 className="h1">Стопи</h1>
             <input
               type="checkbox"
               value={"Stok"}
