@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useMemo } from "react"
 import "./App.css"
 import { renderCar } from "./three/scripts"
 import * as THREE from "three"
@@ -18,26 +18,49 @@ function App() {
   const [selectedOptionСatafot, setSelectedOptionСatafot] = useState("Stok")
 
   const canvasRef = useRef(null)
-  const splitrModel = []
-  const grillModel = []
-  const lightModel = []
-  const stopModel = []
-  const catafotModel = []
+  const splitrModel = useMemo(() => [], [])
+  const grillModel = useMemo(() => [], [])
+  const lightModel = useMemo(() => [], [])
+  const stopModel = useMemo(() => [], [])
+  const catafotModel = useMemo(() => [], [])
+  console.log(splitrModel)
 
-  const loader = new GLTFLoader()
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const parent = canvas.parentElement
-    canvas.width = parent.clientWidth
-    canvas.height = parent.clientHeight
-  }, [])
-
+  const loader = useMemo(() => new GLTFLoader(), [])
+  const scene = useMemo(() => new THREE.Scene(), [])
   useEffect(() => {
     loader.load("Base/стокмашина.gltf", (gltf) => {
       scene.add(gltf.scene.children[0])
     })
+    const sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }
 
+    const canvas = canvasRef.current
+
+    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
+    scene.add(camera)
+
+    const controls = new OrbitControls(camera, canvas)
+    controls.enableDamping = true
+    controls.minDistance = 4
+    controls.maxDistance = 10
+
+    const renderer = new THREE.WebGLRenderer({ canvas })
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.render(scene, camera)
+
+    const handleMouseWheel = (event) => {
+      const delta = event.deltaY
+      controls.zoom += delta * 0.001
+    }
+    window.addEventListener("wheel", handleMouseWheel)
+
+    renderCar(camera, scene, controls, renderer)
+  }, [
+  ])
+
+  useEffect(() => {
     function loadSplitrModel() {
       splitrModel.forEach((model) => {
         scene.remove(model)
@@ -83,7 +106,10 @@ function App() {
       }
     }
     // Зміна юбки
+    loadSplitrModel()
+  }, [selectedOptionSplitr, loader, scene, splitrModel])
 
+  useEffect(() => {
     function loadGrillModel() {
       grillModel.forEach((model) => {
         scene.remove(model)
@@ -128,8 +154,11 @@ function App() {
           console.log("Невідома опція")
       }
     }
+    loadGrillModel()
     // Зміна решітки
+  }, [selectedOptionGrill, loader, scene, grillModel])
 
+  useEffect(() => {
     function loadLightModel() {
       lightModel.forEach((model) => {
         scene.remove(model)
@@ -168,7 +197,10 @@ function App() {
       }
     }
     // Зміна світла
+    loadLightModel()
+  }, [selectedOptionLights, loader, scene, lightModel])
 
+  useEffect(() => {
     function loadStopModel() {
       stopModel.forEach((model) => {
         scene.remove(model)
@@ -207,7 +239,10 @@ function App() {
       }
     }
     // Зміна стопів
+    loadStopModel()
+  }, [selectedOptionStop, loader, scene, stopModel])
 
+  useEffect(() => {
     function loadCatafotModel() {
       catafotModel.forEach((model) => {
         scene.remove(model)
@@ -240,44 +275,8 @@ function App() {
     }
     // Зміна катафотів
 
-    const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    }
-
-    const scene = new THREE.Scene()
-    const canvas = canvasRef.current
-
-    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-    scene.add(camera)
-
-    const controls = new OrbitControls(camera, canvas)
-    controls.enableDamping = true
-    controls.minDistance = 4
-    controls.maxDistance = 10
-
-    const renderer = new THREE.WebGLRenderer({ canvas })
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.render(scene, camera)
-    const handleMouseWheel = (event) => {
-      const delta = event.deltaY
-      controls.zoom += delta * 0.001
-    }
-    window.addEventListener("wheel", handleMouseWheel)
-
-    renderCar(sizes, camera, scene, canvas, controls, renderer)
-    loadSplitrModel()
-    loadGrillModel()
-    loadLightModel()
-    loadStopModel()
     loadCatafotModel()
-  }, [
-    selectedOptionSplitr,
-    selectedOptionGrill,
-    selectedOptionLights,
-    selectedOptionStop,
-    selectedOptionСatafot,
-  ])
+  }, [selectedOptionСatafot, loader, scene, catafotModel])
 
   return (
     <div className="center">

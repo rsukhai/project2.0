@@ -1,19 +1,10 @@
 import * as THREE from "three"
 import "./style.css"
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 
 
-export const renderCar = (sizes, camera, scene, canvas, controls, renderer) => {
+export const renderCar = ( camera, scene, controls, renderer) => {
   scene.background = new THREE.Color(0x505050)
-
-
-
-
-
-
-
-
 
 
 
@@ -60,18 +51,11 @@ export const renderCar = (sizes, camera, scene, canvas, controls, renderer) => {
   scene.add(spotLight4)
   scene.add(spotLight4.target)
 
-  const loader = new GLTFLoader()
 
 
 
 
-// const baseCar = { model: null };
 
-
-// loader.load('Base/стокмашина.gltf', (gltf) => {
-//   baseCar.model = gltf.scene.children[0];
-//   scene.add(baseCar.model);
-// });
 
 
 
