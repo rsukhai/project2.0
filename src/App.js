@@ -23,7 +23,7 @@ function App() {
   const lightModel = useMemo(() => [], [])
   const stopModel = useMemo(() => [], [])
   const catafotModel = useMemo(() => [], [])
-  
+
   const loader = useMemo(() => new GLTFLoader(), [])
   const scene = useMemo(() => new THREE.Scene(), [])
   useEffect(() => {
@@ -56,8 +56,7 @@ function App() {
     window.addEventListener("wheel", handleMouseWheel)
 
     renderCar(camera, scene, controls, renderer)
-  }, [
-  ])
+  }, [loader,scene])
 
   useEffect(() => {
     function loadSplitrModel() {
