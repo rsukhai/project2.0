@@ -23,8 +23,7 @@ function App() {
   const lightModel = useMemo(() => [], [])
   const stopModel = useMemo(() => [], [])
   const catafotModel = useMemo(() => [], [])
-  console.log(splitrModel)
-
+  
   const loader = useMemo(() => new GLTFLoader(), [])
   const scene = useMemo(() => new THREE.Scene(), [])
   useEffect(() => {
