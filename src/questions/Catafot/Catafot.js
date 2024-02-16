@@ -1,7 +1,6 @@
 import "./catafot.css"
 
-const Сatafot = ({selectedOptionСatafot, setSelectedOptionСatafot}) => {
-
+const Сatafot = ({ selectedOptionСatafot, setSelectedOptionСatafot }) => {
   function onValueChange(event) {
     setSelectedOptionСatafot(event.target.value)
   }
@@ -17,24 +16,26 @@ const Сatafot = ({selectedOptionСatafot, setSelectedOptionСatafot}) => {
               value={"Stok"}
               checked={selectedOptionСatafot === "Stok"}
               onChange={onValueChange}
-            />{" Сток "}
-            
+            />
+            {" Сток "}
+
             <br />
             <input
               type="checkbox"
-              value={"Black"}
-              checked={selectedOptionСatafot === "Black"}
+              value={"White"}
+              checked={selectedOptionСatafot === "White"}
               onChange={onValueChange}
-            />{" Чорний "}
-            
+            />
+            {" Білий "}
+
             <br />
             <input
               type="checkbox"
               value={"Led"}
               checked={selectedOptionСatafot === "Led"}
               onChange={onValueChange}
-            />{" Лед "}
-            
+            />
+            {" Лед "}
           </td>
         </tr>
       </table>

@@ -9,6 +9,7 @@ import Grill from "./questions/Grill/Grill"
 import Stop from "./questions/Stop/Stop"
 import Catafot from "./questions/Catafot/Catafot"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 
 function App() {
   const [selectedOptionGrill, setSelectedOptionGrill] = useState("Stok")
@@ -26,10 +27,8 @@ function App() {
 
   const loader = useMemo(() => new GLTFLoader(), [])
   const scene = useMemo(() => new THREE.Scene(), [])
+
   useEffect(() => {
-    loader.load("Base/стокмашина.gltf", (gltf) => {
-      scene.add(gltf.scene.children[0])
-    })
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -42,12 +41,21 @@ function App() {
 
     const controls = new OrbitControls(camera, canvas)
     controls.enableDamping = true
-    controls.minDistance = 4
-    controls.maxDistance = 10
+    controls.minDistance = 3
+    controls.maxDistance = 8
 
     const renderer = new THREE.WebGLRenderer({ canvas })
     renderer.setSize(sizes.width, sizes.height)
     renderer.render(scene, camera)
+    const environment = new RoomEnvironment(renderer)
+    const pmremGenerator = new THREE.PMREMGenerator(renderer)
+
+    const envMap = pmremGenerator.fromScene(environment).texture
+
+    scene.environment = envMap
+    loader.load("Base/стокмашина.gltf", (gltf) => {
+      scene.add(gltf.scene)
+    })
 
     const handleMouseWheel = (event) => {
       const delta = event.deltaY
@@ -56,7 +64,7 @@ function App() {
     window.addEventListener("wheel", handleMouseWheel)
 
     renderCar(camera, scene, controls, renderer)
-  }, [loader,scene])
+  }, [loader, scene])
 
   useEffect(() => {
     function loadSplitrModel() {
@@ -175,6 +183,7 @@ function App() {
             scene.add(model)
             lightModel.push(model)
           })
+
           break
         case "Lx":
           loader.load("Lights/фарилхдизайн.gltf", (gltf) => {
@@ -253,8 +262,8 @@ function App() {
             catafotModel.push(model)
           })
           break
-        case "Black":
-          loader.load("Catafot/катафотчорний.gltf", (gltf) => {
+        case "White":
+          loader.load("Catafot/катафотбілий.gltf", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             catafotModel.push(model)
@@ -310,3 +319,4 @@ function App() {
 }
 
 export default App
+
