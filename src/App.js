@@ -10,6 +10,7 @@ import Stop from "./questions/Stop/Stop"
 import Catafot from "./questions/Catafot/Catafot"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
 
 function App() {
   const [selectedOptionGrill, setSelectedOptionGrill] = useState("Stok")
@@ -27,25 +28,35 @@ function App() {
 
   const loader = useMemo(() => new GLTFLoader(), [])
   const scene = useMemo(() => new THREE.Scene(), [])
+  const dloader = new DRACOLoader()
+  dloader.setDecoderPath(
+    "https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
+  )
+  dloader.setDecoderConfig({ type: "js" })
+  loader.setDRACOLoader(dloader)
 
   useEffect(() => {
-    const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    }
-
     const canvas = canvasRef.current
 
-    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
+    const camera = new THREE.PerspectiveCamera(
+      22,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      100
+    )
     scene.add(camera)
+    camera.fov += 10
+    camera.updateProjectionMatrix()
 
     const controls = new OrbitControls(camera, canvas)
+    controls.maxPolarAngle = THREE.MathUtils.degToRad(87)
     controls.enableDamping = true
-    controls.minDistance = 3
-    controls.maxDistance = 8
+    controls.minDistance = 5.5
+    controls.maxDistance = 10
+    controls.target.set(0, 0.9, 0)
 
     const renderer = new THREE.WebGLRenderer({ canvas })
-    renderer.setSize(sizes.width, sizes.height)
+    renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.render(scene, camera)
     const environment = new RoomEnvironment(renderer)
     const pmremGenerator = new THREE.PMREMGenerator(renderer)
@@ -53,9 +64,22 @@ function App() {
     const envMap = pmremGenerator.fromScene(environment).texture
 
     scene.environment = envMap
-    loader.load("Base/стокмашина.gltf", (gltf) => {
-      scene.add(gltf.scene)
-    })
+    loader.load(
+      "Base/untitled.glb",
+      (gltf) => {
+        scene.add(gltf.scene)
+      },
+      () => {
+        console.log("Завантаження...")
+      },
+      (error) => {
+        console.error("Помилка завантаження GLB файлу:", error)
+      }
+    )
+    // const envMap = pmremGenerator.fromScene(environment, 0.1, 12).texture
+    // const spotLight = new THREE.SpotLight(0xffffff, 10000)
+    // spotLight.position.set(-8.58, 4.328, -7.134)
+    // scene.add(spotLight)
 
     const handleMouseWheel = (event) => {
       const delta = event.deltaY
@@ -73,35 +97,35 @@ function App() {
       })
       switch (selectedOptionSplitr) {
         case "Stok":
-          loader.load("Splitr/юбкасток.gltf", (gltf) => {
+          loader.load("Splitr/юбкасток.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             splitrModel.push(model)
           })
           break
         case "2016":
-          loader.load("Splitr/юбка2016.gltf", (gltf) => {
+          loader.load("Splitr/юбка2016.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             splitrModel.push(model)
           })
           break
         case "2019":
-          loader.load("Splitr/юбка2019.gltf", (gltf) => {
+          loader.load("Splitr/юбка2019.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             splitrModel.push(model)
           })
           break
         case "2021":
-          loader.load("Splitr/юбка2021.gltf", (gltf) => {
+          loader.load("Splitr/юбка2021.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             splitrModel.push(model)
           })
           break
         case "WALD":
-          loader.load("Splitr/юбкаwald.gltf", (gltf) => {
+          loader.load("Splitr/юбкаwald.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             splitrModel.push(model)
@@ -319,4 +343,3 @@ function App() {
 }
 
 export default App
-
