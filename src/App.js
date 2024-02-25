@@ -9,9 +9,9 @@ import Grill from "./questions/Grill/Grill"
 import Stop from "./questions/Stop/Stop"
 import Catafot from "./questions/Catafot/Catafot"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
+// import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js"
 
 function App() {
   const [selectedOptionGrill, setSelectedOptionGrill] = useState("Stok")
@@ -60,10 +60,26 @@ function App() {
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.render(scene, camera)
 
+    // new RGBELoader().load("Base/venice_sunset_1k.hdr", function (texture) {
+    //   if (texture) {
+    //     texture.mapping = THREE.EquirectangularReflectionMapping
+    //     scene.background = texture
+    //     scene.environment = texture
+    //     scene.environment.mapping = THREE.EquirectangularReflectionMapping
+    //   } else {
+    //     console.error("Помилка завантаження текстури")
+    //   }
+    // })
     scene.background = new THREE.Color(0x333333)
     scene.environment = new RGBELoader().load("Base/venice_sunset_1k.hdr")
     scene.environment.mapping = THREE.EquirectangularReflectionMapping
-    scene.fog = new THREE.Fog(0x333333, 10, 15)
+    scene.fog = new THREE.Fog(0x333333, 12, 17)
+
+    let grid = new THREE.GridHelper(20, 40, 0xffffff, 0xffffff)
+    grid.material.opacity = 0.2
+    grid.material.depthWrite = false
+    grid.material.transparent = true
+    scene.add(grid)
 
     // const environment = new RoomEnvironment(renderer)
     // const pmremGenerator = new THREE.PMREMGenerator(renderer)
