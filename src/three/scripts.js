@@ -4,7 +4,7 @@ import "./style.css"
 export const renderCar = (camera, scene, controls, renderer) => {
   scene.background = new THREE.Color(0xffffff)
 
-  camera.position.set(4.25, 3.4, -4.5)
+  camera.position.set(3.617, 1.905, 7.836)
 
   const floor = new THREE.Mesh()
   floor.receiveShadow = true

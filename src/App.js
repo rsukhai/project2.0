@@ -11,6 +11,7 @@ import Catafot from "./questions/Catafot/Catafot"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 function App() {
   const [selectedOptionGrill, setSelectedOptionGrill] = useState("Stok")
@@ -51,19 +52,25 @@ function App() {
     const controls = new OrbitControls(camera, canvas)
     controls.maxPolarAngle = THREE.MathUtils.degToRad(87)
     controls.enableDamping = true
-    controls.minDistance = 5.5
-    controls.maxDistance = 10
+    controls.minDistance = 6.5
+    controls.maxDistance = 12
     controls.target.set(0, 0.9, 0)
 
     const renderer = new THREE.WebGLRenderer({ canvas })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.render(scene, camera)
-    const environment = new RoomEnvironment(renderer)
-    const pmremGenerator = new THREE.PMREMGenerator(renderer)
 
-    const envMap = pmremGenerator.fromScene(environment).texture
+    scene.background = new THREE.Color(0x333333)
+    scene.environment = new RGBELoader().load("Base/venice_sunset_1k.hdr")
+    scene.environment.mapping = THREE.EquirectangularReflectionMapping
+    scene.fog = new THREE.Fog(0x333333, 10, 15)
 
-    scene.environment = envMap
+    // const environment = new RoomEnvironment(renderer)
+    // const pmremGenerator = new THREE.PMREMGenerator(renderer)
+
+    // const envMap = pmremGenerator.fromScene(environment).texture
+
+    // scene.environment = envMap
     loader.load(
       "Base/untitled.glb",
       (gltf) => {
@@ -146,35 +153,35 @@ function App() {
       })
       switch (selectedOptionGrill) {
         case "Stok":
-          loader.load("Grill/решіткасток.gltf", (gltf) => {
+          loader.load("Grill/решіткасток.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             grillModel.push(model)
           })
           break
         case "2016":
-          loader.load("Grill/решітка2016.gltf", (gltf) => {
+          loader.load("Grill/решітка2016.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             grillModel.push(model)
           })
           break
         case "2019":
-          loader.load("Grill/решітка2019.gltf", (gltf) => {
+          loader.load("Grill/решітка2019.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             grillModel.push(model)
           })
           break
         case "2021":
-          loader.load("Grill/решітка2021.gltf", (gltf) => {
+          loader.load("Grill/решітка2021.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             grillModel.push(model)
           })
           break
         case "TRD":
-          loader.load("Grill/решіткаТРД.gltf", (gltf) => {
+          loader.load("Grill/решіткаТРД.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             grillModel.push(model)
@@ -195,14 +202,14 @@ function App() {
       })
       switch (selectedOptionLights) {
         case "Stok":
-          loader.load("Lights/фаристок.gltf", (gltf) => {
+          loader.load("Lights/фаристок.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             lightModel.push(model)
           })
           break
         case "Black":
-          loader.load("Lights/фаричорні2019.gltf", (gltf) => {
+          loader.load("Lights/фаричорні2019.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             lightModel.push(model)
@@ -210,14 +217,14 @@ function App() {
 
           break
         case "Lx":
-          loader.load("Lights/фарилхдизайн.gltf", (gltf) => {
+          loader.load("Lights/фарилхдизайн.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             lightModel.push(model)
           })
           break
         case "Bugatti":
-          loader.load("Lights/фарибугатті.gltf", (gltf) => {
+          loader.load("Lights/фарибугатті.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             lightModel.push(model)
@@ -238,28 +245,28 @@ function App() {
       })
       switch (selectedOptionStop) {
         case "Stok":
-          loader.load("Stop/стописток.gltf", (gltf) => {
+          loader.load("Stop/стописток.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             stopModel.push(model)
           })
           break
         case "Dark-white":
-          loader.load("Stop/стопитемнобілі.gltf", (gltf) => {
+          loader.load("Stop/стопитемнобілі.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             stopModel.push(model)
           })
           break
         case "Light":
-          loader.load("Stop/стописвітлі.gltf", (gltf) => {
+          loader.load("Stop/стописвітлі.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             stopModel.push(model)
           })
           break
         case "Dark":
-          loader.load("Stop/стопитемні.gltf", (gltf) => {
+          loader.load("Stop/стопитемні.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             stopModel.push(model)
@@ -280,21 +287,21 @@ function App() {
       })
       switch (selectedOptionСatafot) {
         case "Stok":
-          loader.load("Catafot/катафотсток.gltf", (gltf) => {
+          loader.load("Catafot/катафотсток.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             catafotModel.push(model)
           })
           break
         case "White":
-          loader.load("Catafot/катафотбілий.gltf", (gltf) => {
+          loader.load("Catafot/катафотбілий.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             catafotModel.push(model)
           })
           break
         case "Led":
-          loader.load("Catafot/катафотлед.gltf", (gltf) => {
+          loader.load("Catafot/катафотлед.glb", (gltf) => {
             const model = gltf.scene.children[0]
             scene.add(model)
             catafotModel.push(model)
