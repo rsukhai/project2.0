@@ -1,15 +1,9 @@
 import "./splitr.css"
-import { useState } from "react"
 
-const Splitr = ({selectedOptionSplitr, setSelectedOptionSplitr}) => {
-
+const Splitr = ({ selectedOptionSplitr, setSelectedOptionSplitr }) => {
   function onValueChange(event) {
     setSelectedOptionSplitr(event.target.value)
   }
-
-
-
-
 
   return (
     <div className="splitr">
@@ -22,40 +16,40 @@ const Splitr = ({selectedOptionSplitr, setSelectedOptionSplitr}) => {
               value={"Stok"}
               checked={selectedOptionSplitr === "Stok"}
               onChange={onValueChange}
-            />{" Сток "}
-            
+            />
+            <span class="led-text">Сток</span>
             <br />
             <input
               type="checkbox"
               value={"2016"}
               checked={selectedOptionSplitr === "2016"}
               onChange={onValueChange}
-            />{" Юбка передня + задня 2016 "}
-            
+            />
+            <span class="led-text">Юбка передня + задня 2016</span>
             <br />
             <input
               type="checkbox"
               value={"2019"}
               checked={selectedOptionSplitr === "2019"}
               onChange={onValueChange}
-            />{" Юбка передня + задня 2019 "}
-            
+            />
+            <span class="led-text">Юбка передня + задня 2019</span>
             <br />
             <input
               type="checkbox"
               value={"2021"}
               checked={selectedOptionSplitr === "2021"}
               onChange={onValueChange}
-            />{" Юбка передня + задня 2021 "}
-            
+            />{" "}
+            <span class="led-text">Юбка передня + задня 2021</span>
             <br />
             <input
               type="checkbox"
               value={"WALD"}
               checked={selectedOptionSplitr === "WALD"}
               onChange={onValueChange}
-            />{" Юбка передня + задня + арки WALD "}
-            
+            />
+            <span class="led-text">Юбка передня + задня + арки WALD</span>
           </td>
         </tr>
       </table>

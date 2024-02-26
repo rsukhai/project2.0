@@ -17,7 +17,7 @@ const Grill = ({ selectedOptionGrill, setSelectedOptionGrill }) => {
               checked={selectedOptionGrill === "Stok"}
               onChange={onValueChange}
             />
-            {" Сток "}
+            <span class="led-text">Сток</span>
 
             <br />
             <input
@@ -26,7 +26,7 @@ const Grill = ({ selectedOptionGrill, setSelectedOptionGrill }) => {
               checked={selectedOptionGrill === "2016"}
               onChange={onValueChange}
             />
-            {" 2016 "}
+            <span class="led-text">2016</span>
 
             <br />
             <input
@@ -35,7 +35,7 @@ const Grill = ({ selectedOptionGrill, setSelectedOptionGrill }) => {
               checked={selectedOptionGrill === "2019"}
               onChange={onValueChange}
             />
-            {" 2019 "}
+            <span class="led-text">2019</span>
 
             <br />
             <input
@@ -44,7 +44,7 @@ const Grill = ({ selectedOptionGrill, setSelectedOptionGrill }) => {
               checked={selectedOptionGrill === "2021"}
               onChange={onValueChange}
             />
-            {" 2021 "}
+            <span class="led-text">2021</span>
 
             <br />
             <input
@@ -53,7 +53,7 @@ const Grill = ({ selectedOptionGrill, setSelectedOptionGrill }) => {
               checked={selectedOptionGrill === "TRD"}
               onChange={onValueChange}
             />
-            {" ТРД "}
+            <span class="led-text">ТРД</span>
           </td>
         </tr>
       </table>

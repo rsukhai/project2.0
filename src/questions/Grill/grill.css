@@ -10,6 +10,9 @@
   .td {
     padding-left: 50px;
   }
+  .led-text {
+    color: white;
+}
 }
 @media screen and (min-width: 500px) {
 
@@ -17,4 +20,7 @@
     width: 250px;
     height: 100%;
   }
+  .led-text {
+    color: white;
+}
 }

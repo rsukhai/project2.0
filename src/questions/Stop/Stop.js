@@ -16,7 +16,7 @@ const Stop = ({ selectedOptionStop, setSelectedOptionStop }) => {
               checked={selectedOptionStop === "Stok"}
               onChange={onValueChange}
             />
-            {" Сток "}
+            <span class="led-text">Сток</span>
 
             <br />
             <input
@@ -25,7 +25,7 @@ const Stop = ({ selectedOptionStop, setSelectedOptionStop }) => {
               checked={selectedOptionStop === "Dark-white"}
               onChange={onValueChange}
             />
-            {" Темнобілі "}
+            <span class="led-text">Темнобілі</span>
 
             <br />
             <input
@@ -34,7 +34,7 @@ const Stop = ({ selectedOptionStop, setSelectedOptionStop }) => {
               checked={selectedOptionStop === "Light"}
               onChange={onValueChange}
             />
-            {" Секвентал світлий "}
+            <span class="led-text">Секвентал світлий</span>
 
             <br />
             <input
@@ -43,7 +43,7 @@ const Stop = ({ selectedOptionStop, setSelectedOptionStop }) => {
               checked={selectedOptionStop === "Dark"}
               onChange={onValueChange}
             />
-            {" Секвентал темний "}
+            <span class="led-text">Секвентал темний</span>
           </td>
         </tr>
       </table>

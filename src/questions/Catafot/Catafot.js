@@ -17,7 +17,7 @@ const Сatafot = ({ selectedOptionСatafot, setSelectedOptionСatafot }) => {
               checked={selectedOptionСatafot === "Stok"}
               onChange={onValueChange}
             />
-            {" Сток "}
+            <span class="led-text">Сток</span>
 
             <br />
             <input
@@ -26,7 +26,7 @@ const Сatafot = ({ selectedOptionСatafot, setSelectedOptionСatafot }) => {
               checked={selectedOptionСatafot === "White"}
               onChange={onValueChange}
             />
-            {" Білий "}
+            <span class="led-text">Білий</span>
 
             <br />
             <input
@@ -35,7 +35,7 @@ const Сatafot = ({ selectedOptionСatafot, setSelectedOptionСatafot }) => {
               checked={selectedOptionСatafot === "Led"}
               onChange={onValueChange}
             />
-            {" Лед "}
+            <span class="led-text">Лед</span>
           </td>
         </tr>
       </table>

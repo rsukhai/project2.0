@@ -16,7 +16,7 @@ const Lights = ({selectedOptionLights, setSelectedOptionLights}) => {
               value={"Stok"}
               checked={selectedOptionLights === "Stok"}
               onChange={onValueChange}
-            />{" Сток "}
+            /><span class="led-text">Сток</span>
             
             <br />
             <input
@@ -24,7 +24,7 @@ const Lights = ({selectedOptionLights, setSelectedOptionLights}) => {
               value={"Black"}
               checked={selectedOptionLights === "Black"}
               onChange={onValueChange}
-            />{" Чорні "}
+            /><span class="led-text">Чорні</span>
             
             <br />
             <input
@@ -32,7 +32,7 @@ const Lights = ({selectedOptionLights, setSelectedOptionLights}) => {
               value={"Lx"}
               checked={selectedOptionLights === "Lx"}
               onChange={onValueChange}
-            />{" ЛХ дизайн "}
+            /><span class="led-text">ЛХ дизайн</span>
             
             <br />
             <input
@@ -40,7 +40,7 @@ const Lights = ({selectedOptionLights, setSelectedOptionLights}) => {
               value={"Bugatti"}
               checked={selectedOptionLights === "Bugatti"}
               onChange={onValueChange}
-            />{" Бугатті дизайн "}
+            /><span class="led-text">Бугатті дизайн</span>
             
           </td>
         </tr>
