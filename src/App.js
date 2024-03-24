@@ -18,7 +18,7 @@ import { GroundedSkybox } from 'three/addons/objects/GroundedSkybox.js';
 
 function App() {
   const [selectedOptionGrill, setSelectedOptionGrill] = useState("Stok")
-  const [selectedOptionSplitr, setSelectedOptionSplitr] = useState("")
+  const [selectedOptionSplitr, setSelectedOptionSplitr] = useState("Stok")
   const [selectedOptionLights, setSelectedOptionLights] = useState("Stok")
   const [selectedOptionStop, setSelectedOptionStop] = useState("Stok")
   const [selectedOptionСatafot, setSelectedOptionСatafot] = useState("Stok")
