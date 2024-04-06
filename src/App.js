@@ -9,7 +9,6 @@ import Grill from "./questions/Grill/Grill"
 import Stop from "./questions/Stop/Stop"
 import Catafot from "./questions/Catafot/Catafot"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-// import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js"
 import { GroundedSkybox } from 'three/addons/objects/GroundedSkybox.js';
@@ -39,57 +38,7 @@ function App() {
   dloader.setDecoderConfig({ type: "js" })
   loader.setDRACOLoader(dloader)
 
-  // useEffect(() => {
-  //   const onLoad = (gltf) => {
-  //     scene.traverse((node) => {
-  //       if (node.isMesh) {
-  //         node.receiveShadow = false;
-  //         node.castShadow = false;
-  //       }
-  //     });
-  //     const materials = gltf.materials;
-  //     if (materials) {
-  //       materials.forEach((material) => {
-  //         if (material.name === 'rubber') {
-  //           material.color = '#222';
-  //           material.roughness = 0.6;
-  //           material.roughnessMap = null;
-  //           material.normalScale.set(4, 4);
-  //         } else if (material.name === 'window') {
-  //           material.color = 'black';
-  //           material.roughness = 0;
-  //           material.clearcoat = 0.1;
-  //         } else if (material.name === 'coat') {
-  //           material.envMapIntensity = 4;
-  //           material.roughness = 0.5;
-  //           material.metalness = 1;
-  //         } else if (material.name === 'chrome') {
-  //           material.envMapIntensity = 2;
-  //           material.roughness = 0.45;
-  //           material.metalness = 0.8;
-  //           material.color = '#555';
-  //           material.side = THREE.DoubleSide;
-  //         }
-  //       });
-  //     }
-  //   };
 
-  //   const onProgress = () => {
-  //     console.log("Завантаження...");
-  //   };
-
-  //   const onError = (error) => {
-  //     console.error("Помилка завантаження GLB файлу:", error);
-  //   };
-
-  //   loader.load(
-  //     "Base/untitled.glb",
-  //     onLoad,
-  //     onProgress,
-  //     onError
-  //   );
-
-  // }, [loader]);
 
   
   useEffect(() => {
@@ -124,57 +73,38 @@ function App() {
     const pmremGenerator = new THREE.PMREMGenerator( renderer );
 
     const loader2 = new RGBELoader();
-
-    // const envMap = loader2.load("Base/skidpan_2k.hdr", function(texture) {
-    //   texture.mapping = THREE.EquirectangularReflectionMapping;
-    
-    //   // Застосування текстури як середовища для сцени
-    //   scene.environment = texture;
-    
-    //   // Зменшення інтенсивності освітлення середовищної карти
-    //   scene.environment.intensity = 0.1; // Значення менше 1 зменшить інтенсивність
-    // });
-
-    // const envMap =  loader2.loadAsync( 'Base/skidpan_2k.hdr' );
-		// 		envMap.mapping = THREE.EquirectangularReflectionMapping;
-    
-    // skybox = new GroundedSkybox( envMap, params.height, params.radius );
-		// 		skybox.position.y = params.height - 0.01;
-		// 		scene.add( skybox );
-
     const params = {
-      height: 2,  // Приклад висоти
-      radius: 25, // Приклад радіуса
-      enabled: true, // Інші потенційні параметри
+      height: 2,
+      radius: 25,
+      enabled: true, 
   };
 
 
-    loader2.load("Base/wide_street_02_2k.hdr", function(texture) {
+    loader2.load("Base/wide_street_02_4k.hdr", function(texture) {
       texture.mapping = THREE.EquirectangularReflectionMapping;
       scene.environment = texture;
       scene.environment.intensity = 0.1;
     
-      // Тепер, коли текстура завантажена, можна створити GroundedSkybox
       const skybox = new GroundedSkybox(texture, params.height, params.radius);
       skybox.position.y = params.height - 0.01;
       scene.add(skybox);
     
-      // Продовження інших операцій, що залежать від завантаженої текстури
     });
 
     
   
     const shadowTextureLoader = new THREE.TextureLoader();
+
     shadowTextureLoader.load('Base/car-shadow-v2.png', (texture) => {
-      const shadowGeometry = new THREE.PlaneGeometry(12, 12); // Розміри площини підлаштовуйте під вашу сцену
+      const shadowGeometry = new THREE.PlaneGeometry(12, 12); 
       const shadowMaterial = new THREE.MeshBasicMaterial({
         map: texture,
-        transparent: true, // Важливо для прозорості тіні
-        depthWrite: false, // Допомагає уникнути проблем з рендерингом тіні під об'єктом
+        transparent: true, 
+        depthWrite: false, 
       });
       const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
-      shadowMesh.rotation.x = -Math.PI / 2; // Орієнтуємо площину горизонтально
-      shadowMesh.position.y = 0.01; // Невеликий зсув від землі, щоб уникнути затінення
+      shadowMesh.rotation.x = -Math.PI / 2; 
+      shadowMesh.position.y = 0.01; 
       scene.add(shadowMesh);
     });
 
@@ -203,13 +133,12 @@ function App() {
     
 
 
-  loader.load("Base/стокмашина.gltf", (gltf) => {
+  loader.load("Base/стокмашина.glb", (gltf) => {
     const model = gltf.scene;
     model.getObjectByName( 'car' ).material = car;
     model.getObjectByName( 'black' ).material = black;
     model.getObjectByName( 'windows' ).material = glassMaterial;
     model.getObjectByName( 'chrome' ).material = cromeMaterial2;
-    // model.getObjectByName( 'numberplate' ).material = glassMaterial;
     scene.add(model)
   })
 
@@ -233,7 +162,6 @@ function App() {
       color: 0x000000, metalness: 0.9, roughness: 0.04, transmission: 0.9
     } );
 
-
     function loadSplitrModel() {
       
       splitrModel.forEach((model) => {
@@ -241,16 +169,10 @@ function App() {
       })
       switch (selectedOptionSplitr) {
         case "Stok":
-          loader.load("Splitr/юбкасток.gltf", (gltf) => {
+          loader.load("Splitr/юбкасток.glb", (gltf) => {
             const model = gltf.scene;
-            // model.getObjectByName( 'Mat' ).material = cromeMaterial;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
             model.getObjectByName( 'car' ).material = car;
-            // model.getObjectByName( 'Default' ).material = cromeMaterial;
-
-            
-
-
             scene.add(model)
             splitrModel.push(model) 
           })
@@ -265,7 +187,7 @@ function App() {
           })
           break
         case "2019":
-          loader.load("Splitr/юбка2019.gltf", (gltf) => {
+          loader.load("Splitr/юбка2019.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'car' ).material = car;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
@@ -274,7 +196,7 @@ function App() {
           })
           break
         case "2021":
-          loader.load("Splitr/юбка2021.gltf", (gltf) => {
+          loader.load("Splitr/юбка2021.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
             model.getObjectByName( 'car' ).material = car;
@@ -284,12 +206,11 @@ function App() {
           })
           break
         case "WALD":
-          loader.load("Splitr/юбкаwald.gltf", (gltf) => {
+          loader.load("Splitr/юбкаwald.glb", (gltf) => {
             const model = gltf.scene;
             const carObject = model.getObjectByName('car');
-            car.side = THREE.DoubleSide; // Встановлення рендерингу з обох сторін для матеріалу автомобіля
+            car.side = THREE.DoubleSide;
             carObject.material = car;
-            // model.getObjectByName( 'car' ).material = car;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
             
             scene.add(model)
@@ -306,10 +227,10 @@ function App() {
 
   useEffect(() => {
     const  darkChromeMaterial= new THREE.MeshPhysicalMaterial( {
-      color: 0x616161,  metalness: 1.0, roughness: 0.001, transmission: 0.2
+      color:  0xd1d1d1,  metalness: 1.0, roughness: 0.001, transmission: 0.2
     } );
     const  cromeMaterial  = new THREE.MeshPhysicalMaterial( {
-      color: 0x8c8c8c, metalness: 0.7, roughness: 0.2, transmission: 0.2
+      color: 0x616161, metalness: 0.7, roughness: 0.2, transmission: 0.2
     } );
     const black = new THREE.MeshPhysicalMaterial( {
       color: 0x000000, metalness: 0.2, roughness: 0.8, transmission: 0.2
@@ -330,7 +251,7 @@ function App() {
       })
       switch (selectedOptionGrill) {
         case "Stok":
-          loader.load("Grill/решіткасток.gltf", (gltf) => {
+          loader.load("Grill/решіткасток.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
             model.getObjectByName( 'dark_chrome' ).material = darkChromeMaterial;
@@ -340,7 +261,7 @@ function App() {
           })
           break
         case "2016":
-          loader.load("Grill/решітка2016.gltf", (gltf) => {
+          loader.load("Grill/решітка2016.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'chrome' ).material = cromeMaterial;
             model.getObjectByName( 'dark_chrome' ).material = darkChromeMaterial;
@@ -349,7 +270,7 @@ function App() {
           })
           break
         case "2019":
-          loader.load("Grill/решітка2019.gltf", (gltf) => {
+          loader.load("Grill/решітка2019.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'chrome' ).material = cromeMaterial2;
             model.getObjectByName( 'dark_chrome' ).material = darkChromeMaterial;
@@ -359,7 +280,7 @@ function App() {
           })
           break
         case "2021":
-          loader.load("Grill/решітка2021.gltf", (gltf) => {
+          loader.load("Grill/решітка2021.glb", (gltf) => {
             console.log("Model loaded.");
             const model = gltf.scene;
             model.getObjectByName( 'chrome' ).material = cromeMaterial2;
@@ -376,7 +297,6 @@ function App() {
               model.getObjectByName( 'black' ).material = black2;
               scene.add(model);
               grillModel.push(model);
-              console.log("Model added to the scene.");
             });
             break;
         default:
@@ -389,10 +309,10 @@ function App() {
 
   useEffect(() => {
     const glassMaterial = new THREE.MeshPhysicalMaterial( {
-      color: 0xadadad, metalness: 0.1, roughness: 0, transmission: 1.0
+      color: 0xadadad,reflectivity: 0 , metalness: 0.1, roughness: 0, transmission: 1
     } );
     const glassMaterial4 = new THREE.MeshPhysicalMaterial( {
-      color: 0xffffff, metalness: 0.1, roughness: 0, transmission: 1.0
+      color: 0xffffff, metalness: 0.1,reflectivity: 0 , roughness: 0, transmission: 1.0
     } );
     const glassMaterial2 = new THREE.MeshPhysicalMaterial( {
       color: 0x4d4d4d, metalness: 0.1, roughness: 0
@@ -401,10 +321,10 @@ function App() {
       color: 0x363535, metalness: 0.1, roughness: 0.2
     } );
     const cromeMaterial = new THREE.MeshPhysicalMaterial( {
-      color: 0xC0C0C0, metalness: 1.0, roughness: 0.001
+      color: 0xe3e3e3, metalness: 1.0, roughness: 0.001
     } );
     const light = new THREE.MeshPhysicalMaterial( {
-      color: 0xffffff, metalness: 0.2, roughness: 0.001
+      color: 0xf5f5f5, metalness: 0.2, roughness: 0.001
     } );
     const cromeMaterial2 = new THREE.MeshPhysicalMaterial( {
       color: 0x4f4f4f, metalness: 1.0, roughness: 0.001
@@ -439,7 +359,7 @@ function App() {
           loader.load("Lights/фаричорні2019.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'light' ).material = light;
-            model.getObjectByName( 'dark_chrome' ).material = glassMaterial3;
+            model.getObjectByName( 'dark_chrome' ).material = glassMaterial3;//  лінзи
             const carObject = model.getObjectByName('window');
             glassMaterial.side = THREE.DoubleSide; 
             carObject.material = glassMaterial;
@@ -450,7 +370,7 @@ function App() {
 
           break
         case "Lx":
-          loader.load("Lights/фарилхдизайн.gltf", (gltf) => {
+          loader.load("Lights/фарилхдизайн.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = glassMaterial4;
             
@@ -463,7 +383,7 @@ function App() {
           })
           break
         case "Bugatti":
-          loader.load("Lights/фарибугатті.gltf", (gltf) => {
+          loader.load("Lights/фарибугатті.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = glassMaterial4;
             model.getObjectByName( 'chrome' ).material = glassMaterial3;
@@ -482,7 +402,7 @@ function App() {
 
   useEffect(() => {
     const glassMaterial = new THREE.MeshPhysicalMaterial( {
-      color: 0xbfbfbf, metalness: 0.1, roughness: 0, transmission: 1.0
+      color: 0xbfbfbf, metalness: 0.1,reflectivity: 0 , roughness: 0, transmission: 1.0
     } );
     const darkglassMaterial = new THREE.MeshPhysicalMaterial( {
       color: 0x575757, metalness: 0.1, roughness: 0, transmission: 1.0
@@ -496,7 +416,7 @@ function App() {
       })
       switch (selectedOptionStop) {
         case "Stok":
-          loader.load("Stop/стописток.gltf", (gltf) => {
+          loader.load("Stop/стописток.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = glassMaterial;
             scene.add(model)
@@ -504,7 +424,7 @@ function App() {
           })
           break
         case "Dark-white":
-          loader.load("Stop/стопитемнобілі.gltf", (gltf) => {
+          loader.load("Stop/стопитемнобілі.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = glassMaterial;
             scene.add(model)
