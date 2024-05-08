@@ -141,8 +141,6 @@ function App() {
     model.getObjectByName( 'chrome' ).material = cromeMaterial2;
     scene.add(model)
   })
-
-
     const handleMouseWheel = (event) => {
       const delta = event.deltaY
       controls.zoom += delta * 0.001
@@ -410,6 +408,12 @@ function App() {
     const black = new THREE.MeshPhysicalMaterial( {
       color: 0x000000
     } );
+    const cromeMaterial2 = new THREE.MeshPhysicalMaterial( {
+      color: 0xC0C0C0, metalness: 1.0, roughness: 0.001, transmission: 0.2
+    } );
+    const cromeMaterial = new THREE.MeshPhysicalMaterial( {
+      color: 0xffffff, metalness: 1.0, roughness: 0.001
+    } );
     function loadStopModel() {
       stopModel.forEach((model) => {
         scene.remove(model)
@@ -419,6 +423,13 @@ function App() {
           loader.load("Stop/стописток.glb", (gltf) => {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = glassMaterial;
+            model.getObjectByName( 'chrome' ).material = cromeMaterial;
+            scene.add(model)
+            stopModel.push(model)
+          })
+          loader.load("Base/chrome_element.glb", (gltf) => {
+            const model = gltf.scene;
+            model.getObjectByName( 'chrome_element' ).material = cromeMaterial2;
             scene.add(model)
             stopModel.push(model)
           })
@@ -430,13 +441,24 @@ function App() {
             scene.add(model)
             stopModel.push(model)
           })
+          loader.load("Base/chrome_element.glb", (gltf) => {
+            const model = gltf.scene;
+            model.getObjectByName( 'chrome_element' ).material = cromeMaterial2;
+            scene.add(model)
+            stopModel.push(model)
+          })
           break
         case "Light":
           loader.load("Stop/стописвітлі.glb", (gltf) => {
             const model = gltf.scene;
-            // model.getObjectByName( 'red' ).material = red;
             model.getObjectByName( 'window' ).material = glassMaterial;
             model.getObjectByName( 'black' ).material = black;
+            scene.add(model)
+            stopModel.push(model)
+          })
+          loader.load("Base/chrome_element.glb", (gltf) => {
+            const model = gltf.scene;
+            model.getObjectByName( 'chrome_element' ).material = cromeMaterial2;
             scene.add(model)
             stopModel.push(model)
           })
@@ -446,6 +468,11 @@ function App() {
             const model = gltf.scene;
             model.getObjectByName( 'window' ).material = darkglassMaterial;
             model.getObjectByName( 'black' ).material = black;
+            scene.add(model)
+            stopModel.push(model)
+          })
+          loader.load("Base/black_element.glb", (gltf) => {
+            const model = gltf.scene;
             scene.add(model)
             stopModel.push(model)
           })
