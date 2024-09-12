@@ -1,85 +1,206 @@
+/* App.css */
 * {
   margin: 0;
   padding: 0;
 }
+
 .center {
   height: 100vh;
   width: 100%;
 }
-html,
-body {
+
+html, body {
   overflow: hidden;
 }
 
 @media screen and (max-width: 500px) {
   .canvas-container {
-    position: relative;
-    top: 0;
-    left: 0;
-    outline: none;
-    z-index: 1;
-    opacity: 1;
-    width: 100%;
-    height: 100vh;
+      position: relative;
+      top: 0;
+      left: 0;
+      outline: none;
+      z-index: 1;
+      opacity: 1;
+      width: 100%;
+      height: 100vh;
   }
   canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
   }
 
   .top {
-    display: flex;
-    top: 0;
-    justify-content: space-between;
-    width: 100%;
-    height: 15vh;
-    position: absolute;
-    z-index: 2;
-    margin-top: 20px;
+      display: flex;
+      top: 0;
+      justify-content: space-between;
+      width: 100%;
+      height: 15vh;
+      position: absolute;
+      z-index: 2;
+      margin-top: 20px;
   }
-  .bottom {
-    display: flex;
-    bottom: 0;
+  .loading-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 15vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 10;
+    transition: opacity 3s ease-in-out; /* Adjust transition duration */
+}
+.loader {
     position: absolute;
     z-index: 2;
-    margin-bottom: 70px;
-    justify-content: space-around;
+    width: 50px;
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(#0000 10%, #fcfcfc) content-box;
+    -webkit-mask: repeating-conic-gradient(
+            #0000 0deg,
+            #000 1deg 20deg,
+            #0000 21deg 36deg
+        ),
+        radial-gradient(
+            farthest-side,
+            #0000 calc(100% - var(--b) - 1px),
+            #000 calc(100% - var(--b))
+        );
+    mask: repeating-conic-gradient(
+            #0000 0deg,
+            #000 1deg 20deg,
+            #0000 21deg 36deg
+        ),
+        radial-gradient(
+            farthest-side,
+            #0000 calc(100% - var(--b) - 1px),
+            #000 calc(100% - var(--b))
+        );
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    animation: l4 1s infinite steps(10);
+}
+@keyframes l4 {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.blurred-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+    transition: filter 3s ease-in-out;
+}
+  .bottom {
+      display: flex;
+      bottom: 0;
+      width: 100%;
+      height: 15vh;
+      position: absolute;
+      z-index: 2;
+      margin-bottom: 70px;
+      justify-content: space-around;
   }
 }
 
 @media screen and (min-width: 500px) {
   .canvas {
-    top: 0;
-    left: 0;
-    outline: none;
-    z-index: 1;
-    opacity: 1;
-    width: 100%;
-    height: 100%;
+      top: 0;
+      left: 0;
+      outline: none;
+      z-index: 1;
+      opacity: 1;
+      width: 100%;
+      height: 100%;
+  }
+  .loading-image-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 10;
+      transition: opacity 3s ease-in-out; /* Adjust transition duration */
+  }
+  .loader {
+      position: absolute;
+      z-index: 2;
+      width: 50px;
+      --b: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 1px;
+      background: conic-gradient(#0000 10%, #fcfcfc) content-box;
+      -webkit-mask: repeating-conic-gradient(
+              #0000 0deg,
+              #000 1deg 20deg,
+              #0000 21deg 36deg
+          ),
+          radial-gradient(
+              farthest-side,
+              #0000 calc(100% - var(--b) - 1px),
+              #000 calc(100% - var(--b))
+          );
+      mask: repeating-conic-gradient(
+              #0000 0deg,
+              #000 1deg 20deg,
+              #0000 21deg 36deg
+          ),
+          radial-gradient(
+              farthest-side,
+              #0000 calc(100% - var(--b) - 1px),
+              #000 calc(100% - var(--b))
+          );
+      -webkit-mask-composite: destination-in;
+      mask-composite: intersect;
+      animation: l4 1s infinite steps(10);
+  }
+  @keyframes l4 {
+      to {
+          transform: rotate(1turn);
+      }
+  }
+
+  .blurred-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(10px);
+      transition: filter 3s ease-in-out;
   }
   .top {
-    display: flex;
-    top: 0;
-    justify-content: space-between;
-    width: calc(100% - 100px);
-    height: 15vh;
-    position: absolute;
-    z-index: 2;
-    margin: 50px 150px 0px 50px;
+      display: flex;
+      top: 0;
+      justify-content: space-between;
+      width: calc(100% - 100px);
+      height: 15vh;
+      position: absolute;
+      z-index: 2;
+      margin: 50px 150px 0px 50px;
   }
   .bottom {
-    display: flex;
-    bottom: 0;
-    width: calc(100% - 100px);
-    height: 15vh;
-    position: absolute;
-    z-index: 2;
-    margin: 0px 50px 50px 50px;
-    justify-content: space-around;
+      display: flex;
+      bottom: 0;
+      width: calc(100% - 100px);
+      height: 15vh;
+      position: absolute;
+      z-index: 2;
+      margin: 0px 50px 50px 50px;
+      justify-content: space-around;
   }
 }
+
